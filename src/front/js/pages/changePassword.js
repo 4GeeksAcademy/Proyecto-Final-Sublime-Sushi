@@ -22,4 +22,21 @@ export const ChangePassword = () => {
         }
         console.log("Clave Cambiada")
     }
-}
+
+    return (
+        <div className="text-center mt-5">
+            <h1>Hello rigo</h1>
+            <form onSubmit={submitForm}>
+                <div className="form-group">
+                    <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                    <input type="password" className="form-control" name="password" id="password" placeholder="Password"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleInputPassword1" className="form-label">Password Confirm</label>
+                    <input type="password" className="form-control" name="passwordConfirm" id="passwordConfirm" placeholder="Password Confirm"/>
+                </div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
+        </div>
+	);
+};
