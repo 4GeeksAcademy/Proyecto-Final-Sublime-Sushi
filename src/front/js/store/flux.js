@@ -98,7 +98,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return resp
 			},
 
-			changePasswordRecovery : async (passwordToken, password) => {
+			changePasswordRecovery : async (passwordToken, password) => { 
 				let resp = await fetch(apiUrl + "/changepassword", {
 					method: "POST",
 					body: JSON.stringify({password}),
