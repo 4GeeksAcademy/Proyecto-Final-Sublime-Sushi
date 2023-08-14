@@ -3,11 +3,12 @@ import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/sushi.jpg";
 import "../../styles/home.css";
 import { Navbar } from "../component/navbar";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
 
 	const { store, actions } = useContext(Context);
-
+	const navigate = useNavigate
     async function submitForm(e){
         e.preventDefault()
         let data = new FormData(e.target)
@@ -17,6 +18,14 @@ export const Home = () => {
         }
         console.log("Login Exitoso")
     }
+
+	function signup(){
+		navigate("/api/signup");
+	}
+
+	function recoveryPassword(){
+		navigate("/api/recoveryPassword")
+	}
 
 	return (
         <div className="text-center mt-5">
@@ -31,44 +40,16 @@ export const Home = () => {
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                     <input type="password" className="form-control" name="password" id="exampleInputPassword1" placeholder="Password"/>
                 </div>
+				<div>
+                <button onClick={recoveryPassword} className="btn btn-primary">Recuperar Contraseña</button>
+				</div>
+				<div>
                 <button type="submit" className="btn btn-primary">Login</button>
+				</div>
+				<div>
+                <button onClick={signup} className="btn btn-primary">Registrarse</button>
+				</div>
             </form>
         </div>
 	);
-	/*const { store, actions } = useContext(Context);
-
-	return (
-		<div className="container text-center mt-3">
-			<div className="row">
-				<div className="col">
-					<p>
-						<img className="w-50" src={rigoImageUrl}/>
-					</p>
-				</div>
-				<div className="col text-start fw-bold fs-1">
-					<p className="mt-5">CUIDADO: Todo en este sitio puede verse delicioso y puede provocarte un ataque de hambre</p>
-				</div>
-			</div>
-			<div className="row">
-			<div className="col text-start fw-bold fs-1">
-					<p className="mt-5">Te apetece Probar uno de nuestros combinados de 120 piezas</p>
-				</div>
-				<div className="col">
-					<p>
-						<img className="w-50" src={rigoImageUrl}/>
-					</p>
-				</div>
-			</div>
-			<div className="row">
-				<div className="col">
-					<p>
-						<img className="w-50" src={rigoImageUrl}/>
-					</p>
-				</div>
-				<div className="col text-start fw-bold fs-1">
-					<p className="mt-5">Te contamos un poco sobre nosotros</p>
-				</div>
-			</div>
-		</div>
-	);*/
 };
