@@ -6,7 +6,7 @@ export const Footer = () => (
 			Sublime Sushi & Sea Food
 		</h1>
 		<p>
-		Rbla. O'Higgins 4957
+		Rbla. O'Higgins 4957, Montevideo, Uruguay
 		</p>
 	</footer>
 );

@@ -16,19 +16,17 @@ export const RecoveryPassword = () => {
     }
 
 	return (
-		<div className="text-center mt-5">
-				<div className="card-header main-title">
-					Recuperemos tu contraseña
-				</div>
-			<div className="card gradient-custom-contrast">
+		<div className="container-login text-center mt-5">
+			<h1 className="card-header main-title">Recuperemos tu contraseña</h1>
+			<div className="card gradient-custom-contrast mt-5">
 				<div className="card-body">
 					<form onSubmit = {submitForm}>
 						<div className="mb-3 card-title">
-							<label htmlFor="exampleInputEmail" className="form-label">Email address</label>
+							<label htmlFor="exampleInputEmail" className="form-label mt-2">Email address</label>
 							<input type="email" className="form-control" name="email" id="exampleInputEmail" aria-describedby="emailHelp"/>
 							<div id="emailHelp" className="form-text" >We'll never share your email with anyone else.</div>
 						</div>
-						<button type="submit" className="btn btn-primary">Request recovery</button>
+						<button type="submit" className="btn btn-primary">Recuperar Contraseña</button>
 					</form>
 				</div>
 			</div>			

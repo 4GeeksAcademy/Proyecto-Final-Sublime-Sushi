@@ -10,8 +10,14 @@ export const Navbar = () => {
 	return (
 		<nav className="navbar navbar-light bg-dark">
 			<div className="container">
-				<Link to="/">
+				<Link to="/principal">
 					<span className="navbar-brand text-white mb-0 h1">Sublime Sushi</span>
+				</Link>
+				<Link to="/menu">
+					<span className="navbar-brand text-white mb-0 h1">Menú</span>
+				</Link>
+				<Link to="/sobreNosotros">
+					<span className="navbar-brand text-white mb-0 h1">Sobre Nosotros</span>
 				</Link>
 				{
 					!!store.accessToken?
@@ -20,7 +26,7 @@ export const Navbar = () => {
 					</div>
 					:
 					<div className="ml-auto">
-						<Link to="/recovery">
+						<Link to="/home">
 							<button className="btn btn-primary">Login</button>
 						</Link>
 					</div>
