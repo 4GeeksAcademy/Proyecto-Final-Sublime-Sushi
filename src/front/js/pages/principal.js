@@ -19,7 +19,7 @@ export const Principal = () => {
 				</div>
 				<div className="col text-start fw-bold fs-1">
 					<p className="mt-5">CUIDADO: Todo en este sitio puede verse delicioso y puede provocarte un ataque de hambre</p>
-					<Link to="/">
+					<Link to="/menu">
 						<button className="btn btn-primary navbar-brand text-white mb-0 h1">Pedir</button>
 					</Link>
 				</div>
@@ -27,7 +27,7 @@ export const Principal = () => {
 			<div className="row mt-2">
 			<div className="col text-center fw-bold fs-1">
 					<p className="mt-5">Te apetece probar uno de nuestros combinados de 120 piezas</p>
-					<Link to="/">
+					<Link to="/menu">
 						<button className="btn btn-primary navbar-brand text-white mb-0 h1">YENDOO!!!</button>
 					</Link>
 				</div>
@@ -45,7 +45,7 @@ export const Principal = () => {
 				</div>
 				<div className="col text-start fw-bold fs-1">
 					<p className="mt-5">Te contamos un poco sobre nosotros, y de nuestra ideología</p>
-					<Link to="/">
+					<Link to="/sobreNosotros">
 						<button className="btn btn-primary navbar-brand text-white mb-0 h1">Conocenos</button>
 					</Link>
 				</div>
