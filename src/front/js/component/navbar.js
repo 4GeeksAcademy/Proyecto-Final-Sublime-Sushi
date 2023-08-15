@@ -13,6 +13,12 @@ export const Navbar = () => {
 				<Link to="/">
 					<span className="navbar-brand text-white mb-0 h1">Sublime Sushi</span>
 				</Link>
+				<Link to="/">
+					<span className="navbar-brand text-white mb-0 h1">Menú</span>
+				</Link>
+				<Link to="/">
+					<span className="navbar-brand text-white mb-0 h1">Sobre Nosotros</span>
+				</Link>
 				{
 					!!store.accessToken?
 					<div className="ml-auto">

@@ -24,18 +24,18 @@ export const ChangePassword = () => {
     }
 
     return (
-        <div className="text-center mt-5">
-            <h1>Hello rigo</h1>
+        <div className="container-login text-center mt-5">
+            <h1>Cambiar contraseña</h1>
             <form onSubmit={submitForm}>
-                <div className="form-group">
+                <div className="form-group m-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                     <input type="password" className="form-control" name="password" id="password" placeholder="Password"/>
                 </div>
-                <div className="form-group">
+                <div className="form-group m-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password Confirm</label>
                     <input type="password" className="form-control" name="passwordConfirm" id="passwordConfirm" placeholder="Password Confirm"/>
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary mt-1">Confirmar</button>
             </form>
         </div>
 	);

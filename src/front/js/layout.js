@@ -15,6 +15,7 @@ import { ChangePassword } from "./pages/changePassword";
 import { Signup } from "./pages/signup"
 import { SobreNosotros } from "./pages/sobreNosotros";
 import { Principal } from "./pages/principal";
+import { Menu } from "./pages/menu";
 
 //create your first component
 const Layout = () => {
@@ -30,7 +31,7 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element={<Home />} path="/" />
+                        <Route element={<Home />} path="/home" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
