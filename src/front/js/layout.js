@@ -16,6 +16,7 @@ import { Signup } from "./pages/signup"
 import { SobreNosotros } from "./pages/sobreNosotros";
 import { Principal } from "./pages/principal";
 import { Menu } from "./pages/menu";
+import { Product } from "./pages/productview";
 
 //create your first component
 const Layout = () => {
@@ -41,6 +42,7 @@ const Layout = () => {
                         <Route element={<SobreNosotros />} path="/sobreNosotros" />
                         <Route element={<Menu />} path="/menu" />
                         <Route element={<Principal />} path="/principal" />
+                        <Route element={<Product />} path="/productview" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>

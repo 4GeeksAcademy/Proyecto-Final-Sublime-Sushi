@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			preferenceId:null,
 			demo: [
 				{
 					title: "FIRST",
@@ -209,7 +210,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				localStorage.setItem("accessToken", data.accessToken)
 				localStorage.setItem("refreshToken", data.refreshToken)
-			}
+			},
+
+			createPreference: async () => {
+				try {
+					const response = await fetch("http://127.0.0.1:5000/create_preference", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						description: "Bananita contenta",
+						price: 100,
+						quantity: 1,
+						currency_id: "UY" //Si no configuro nada me agarra la moneda de mi cuenta
+					}),
+					});
+​
+					if (response.ok) {
+					console.log("El response vino ok del back end y tiene esta info: ", response)
+					const data = await response.json();
+					const { id } = data;
+					console.log("ESTE ES EL FAMOSO ID: ", id)
+					let store = getStore()
+					setStore({...store , preferenceId: id})
+					let store2 = getStore()
+					console.log("Este es el contenido de id en el store: ",store2.preferenceId.id)
+					return id;
+					} else {
+					console.error("Error creating preference, o sea response.ok dio false en flux.js");
+					}
+				} catch (error) {
+					console.error(error);
+				}
+​
+			  }
 
 			/*apiFetchProtected: async (endpoint, method = "GET", body = {}) => {
 				let resp = await fetch(apiUrl + endpoint, method == "GET" ? undefined : {
