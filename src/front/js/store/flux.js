@@ -16,7 +16,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			auth:false,
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -26,12 +27,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			userLogin: async(email, password)=> {
 				const resp = await getActions().apiFetch("/login", "POST", { email, password })
+				console.log(resp)
 				if(resp.code >= 400){
 					return resp
 				}
 				setStore({
-					 accessToken: resp.data.accessToken,
-					 refreshToken: resp.data.refreshToken
+					accessToken: resp.data.accessToken,
+					refreshToken: resp.data.refreshToken
 				})
 				localStorage.setItem("accessToken", resp.data.accessToken)
 				localStorage.setItem("refreshToken", resp.data.refreshToken)
@@ -140,21 +142,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			apiFetch: async (endpoint, method = "GET", body = {}) => {
-				let resp = await fetch(apiUrl + endpoint, method == "GET" ? undefined : {
+			apiFetch: async(endpoint, method="GET", body={}) => { //ERROR
+				const headers = {
+					"Content-Type": "application/json",
+					"Access-Control-Allow-Origin": "*",
+					"Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+				}
+				let response = await fetch(apiUrl + endpoint, method == "GET" ? {
+					headers: headers
+				} : {
 					method,
 					body: JSON.stringify(body),
-					headers: {
-						"Content-type": "application/json"
-					}
+					mode: 'cors',
+					headers: headers
 				})
-				if (!resp.ok) {
-					console.error(`${resp.status}: ${resp.statusText}`)
-					return { code: resp.status, error: `${resp.status}: ${resp.statusText}`}
+				if(!response.ok) {
+					console.error(`${response.status}: ${response.statusText}`) //ERROR
+					return { code: response.status }
 				}
-				let data = await resp.json()
-				return { code: resp.status, data}
+
+				let data = await response.json()
+				return { code: response.status, data }
 			},
+			
 			apiFetchProtected: async (endpoint, method = "GET", body = {}) => {
 				let params = {
 					headers: {

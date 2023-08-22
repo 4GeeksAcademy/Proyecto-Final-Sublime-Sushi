@@ -51,6 +51,7 @@ def user_login():
     # Retornar el Token
     return jsonify({"accessToken": access_token, "refreshToken":refresh_token})
 
+
 @api.route("/changepassword", methods=["POST"])
 @jwt_required()
 def change_password():
@@ -137,13 +138,6 @@ def register_platos():
     db.session.commit()
     response = {"msg": "Plato creado exitosamente"}
     return jsonify(response), 200
-
-@api.route("/pedidos", methods=["GET"])
-def get_pedidos():
-    pedidos = Restaurant.query.all()
-    results = list(map(lambda x: x.serialize(), pedidos))
-    # print (results)
-    return jsonify(results), 200
 
 @api.route("/pedidos", methods=["POST"])
 def register_pedidos():

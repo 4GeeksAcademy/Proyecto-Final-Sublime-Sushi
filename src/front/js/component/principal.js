@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/sushi.jpg";
-import { Navbar } from "../component/navbar";
+import { Navbar } from "./navbar";
 import { useNavigate } from "react-router-dom";
 
 export const Principal = () => {

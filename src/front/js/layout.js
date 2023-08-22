@@ -13,8 +13,7 @@ import { Footer } from "./component/footer";
 import { RecoveryPassword } from "./pages/recoveryPassword";
 import { ChangePassword } from "./pages/changePassword";
 import { Signup } from "./pages/signup"
-import { SobreNosotros } from "./pages/sobreNosotros";
-import { Principal } from "./pages/principal";
+import { SobreNosotros } from "./pages/sobreNosotros"
 import { Menu } from "./pages/menu";
 
 //create your first component
@@ -31,16 +30,15 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element={<Home />} path="/home" />
+                        <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
-                        <Route element={<RecoveryPassword />} path="/recovery" />
+                        <Route element={<RecoveryPassword />} path="/api/recovery" />
                         <Route element={<ChangePassword />} path="/changepassword" />
-                        <Route element={<Signup />} path="/signup" />
+                        <Route element={<Signup />} path="/api/signup" />
                         <Route element={<SobreNosotros />} path="/sobreNosotros" />
                         <Route element={<Menu />} path="/menu" />
-                        <Route element={<Principal />} path="/principal" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>

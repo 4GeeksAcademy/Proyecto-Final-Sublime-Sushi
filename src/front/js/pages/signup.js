@@ -47,7 +47,7 @@ export const Signup = () => {
                     <button type="submit" className="btn btn-primary mt-2">Signup</button>
                 </div>
                 <div>
-                    <button onClick={() => navigate("/")} className="btn btn-primary mt-2">Volver a Login</button>
+                    <button onClick={() => navigate("/login")} className="btn btn-primary mt-2">Volver a Login</button>
                 </div>
             </form>
         </div>
