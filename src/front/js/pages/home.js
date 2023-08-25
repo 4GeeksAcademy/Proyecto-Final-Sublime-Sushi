@@ -4,8 +4,6 @@ import rigoImageUrl from "../../img/sushi.jpg";
 import "../../styles/home.css";
 import { Navbar } from "../component/navbar";
 import { useNavigate } from "react-router-dom";
-import { Principal } from "../component/principal";
-import { Login } from "../component/Login";
 
 export const Home = () => {
         const { store, actions } = useContext(Context);

@@ -27,17 +27,21 @@ export const Signup = () => {
         <div className="container-login text-center">
             <h1>Registrate</h1>
             <form onSubmit={submitForm}>
-                <div>
-                    <label htmlFor="exampleInputFirstName" className="form-label">Nombre</label>
+                <div >
+                    <label htmlFor="exampleInputFirstName" className="form-label">Name</label>
                     <input type="text" className="form-control" name="first_name" id="exampleInputFirstName" />
                 </div>
-                <div>
-                    <label htmlFor="exampleInputLastName" className="form-label">Apellido</label>
+                <div >
+                    <label htmlFor="exampleInputLastName" className="form-label">Last Name</label>
                     <input type="text" className="form-control" name="last_name" id="exampleInputLastName" />
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
                     <input type="email" className="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleInputPhone1" className="form-label">Phone</label>
+                    <input type="number" className="form-control" name="Phone" id="examplePhone1" aria-describedby="emailHelp" placeholder="Phone number"/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>

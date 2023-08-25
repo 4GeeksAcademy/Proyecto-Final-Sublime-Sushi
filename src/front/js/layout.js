@@ -15,6 +15,10 @@ import { ChangePassword } from "./pages/changePassword";
 import { Signup } from "./pages/signup"
 import { SobreNosotros } from "./pages/sobreNosotros"
 import { Menu } from "./pages/menu";
+import { Profile } from "./pages/profile";
+import { Principal } from "./pages/principal";
+import { Card } from "./component/card";
+import { Cards } from "./component/cards";
 
 //create your first component
 const Layout = () => {
@@ -39,6 +43,9 @@ const Layout = () => {
                         <Route element={<Signup />} path="/api/signup" />
                         <Route element={<SobreNosotros />} path="/sobreNosotros" />
                         <Route element={<Menu />} path="/menu" />
+                        <Route element={<Profile />} path="/profile" />
+                        <Route element={<Principal />} path="/principal" />
+
                     </Routes>
                     <Footer />
                 </ScrollToTop>

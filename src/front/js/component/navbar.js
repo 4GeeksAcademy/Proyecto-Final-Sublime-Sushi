@@ -19,6 +19,9 @@ export const Navbar = () => {
 				<Link to="/sobreNosotros">
 					<span className="navbar-brand text-white mb-0 h1">Sobre Nosotros</span>
 				</Link>
+				<Link to="/Profile">
+					<span className="navbar-brand text-white mb-0 h1">Perfil</span>
+				</Link>
 				{
 					!!store.accessToken?
 					<div className="ml-auto">
