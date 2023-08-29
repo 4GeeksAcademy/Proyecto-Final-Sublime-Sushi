@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
         const { store, actions } = useContext(Context);
-        const navigate = useNavigate
+        const navigate = useNavigate();
         
         async function submitForm(e){
             e.preventDefault()
@@ -16,6 +16,7 @@ export const Home = () => {
             if (resp >= 400) {
                 return
             }
+            navigate('/principal', { replace: true })
             console.log("Login Exitoso")
         }
     
@@ -47,7 +48,7 @@ export const Home = () => {
                         <button onClick={recoveryPassword} className="col btn btn-primary">Recuperar Contraseña</button>
                     </div>
                     <div className="row mt-1">
-                        <button onClick={signup} className="col btn btn-primary">Registrarse</button>
+                        <button onClick={signup} className="col btn btn-primary" type="button">Registrarse</button>
                     </div>
                 </form>
             </div>

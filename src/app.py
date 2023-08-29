@@ -13,6 +13,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
+import mercadopago
 
 #from models import Person
 
@@ -85,3 +86,40 @@ def serve_any_other_file(path):
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=True)
+
+#MERCADOPAGO
+sdk = mercadopago.SDK("TEST-3202916836419989-081921-46f9371b324e6adf7f3858468454df2d-1274738706")
+
+@app.route('/createPreference', methods=['POST'])
+def create_preference():
+    try:
+        req_data = request.get_json()
+
+        preference_data = {
+            "items": [
+                {
+                    "title": req_data["description"],
+                    "unit_price": float(req_data["price"]),
+                    "quantity": int(req_data["quantity"]),
+                }
+            ],
+            "back_urls": {
+                "success": "http://localhost:3000/",
+                "failure": "http://localhost:3000/",
+                "pending": "",
+            },
+            "auto_return": "approved",
+        }
+
+        preference_response = sdk.preference().create(preference_data)
+        preference_id = preference_response["response"]["id"]
+
+        return jsonify({"id": preference_id})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+    

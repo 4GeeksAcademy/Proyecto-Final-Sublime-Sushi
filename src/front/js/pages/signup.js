@@ -13,7 +13,7 @@ export const Signup = () => {
         let data = new FormData(e.target)
         let resp = await actions.userSignup(
             data.get("email"), data.get("password"),
-            data.get("first_name"), data.get("last_name"), false
+            data.get("first_name"), data.get("last_name"), data.get("phone"), false
         )
         if(resp >= 400){
             return
@@ -41,7 +41,7 @@ export const Signup = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleInputPhone1" className="form-label">Phone</label>
-                    <input type="number" className="form-control" name="Phone" id="examplePhone1" aria-describedby="emailHelp" placeholder="Phone number"/>
+                    <input type="number" className="form-control" name="phone" id="exampleInputPhone1" placeholder="Phone number"/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>

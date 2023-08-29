@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./card"; // Asegúrate de que la ruta sea correcta
+import Card from "./card"; 
 
 function Cards({ cardData }) {
     return (

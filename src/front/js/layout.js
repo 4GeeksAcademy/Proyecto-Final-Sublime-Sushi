@@ -17,8 +17,6 @@ import { SobreNosotros } from "./pages/sobreNosotros"
 import { Menu } from "./pages/menu";
 import { Profile } from "./pages/profile";
 import { Principal } from "./pages/principal";
-import { Card } from "./component/card";
-import { Cards } from "./component/cards";
 
 //create your first component
 const Layout = () => {
