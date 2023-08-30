@@ -17,6 +17,7 @@ import { SobreNosotros } from "./pages/sobreNosotros"
 import { Menu } from "./pages/menu";
 import { Profile } from "./pages/profile";
 import { Principal } from "./pages/principal";
+import { View } from "./pages/view";
 
 //create your first component
 const Layout = () => {
@@ -43,6 +44,9 @@ const Layout = () => {
                         <Route element={<Menu />} path="/menu" />
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<Principal />} path="/principal" />
+                        <Route element={<View />} path="/view" />
+
+
 
                     </Routes>
                     <Footer />

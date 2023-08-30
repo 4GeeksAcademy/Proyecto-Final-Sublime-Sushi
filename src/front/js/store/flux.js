@@ -229,11 +229,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"Content-Type": "application/json",
 					},
 					body: JSON.stringify({
-						title: "New York",
-						description: "Uramaki de Salmon, Palta y Queso Philadelphia, Coronado con semillas de sésamo tostado",
-						price: 500,
+						description: "Bananita contenta",
+						price: 100,
 						quantity: 1,
-						currency_id: "$",
+						currency_id: "BRL" //Si no configuro nada me agarra la moneda de mi cuenta
 					}),
 					});
 
