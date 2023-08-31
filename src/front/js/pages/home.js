@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/sushi.jpg";
 import "../../styles/home.css";
 import { Navbar } from "../component/navbar";
 import { useNavigate } from "react-router-dom";

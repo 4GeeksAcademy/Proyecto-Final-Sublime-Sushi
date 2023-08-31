@@ -18,6 +18,8 @@ import { Menu } from "./pages/menu";
 import { Profile } from "./pages/profile";
 import { Principal } from "./pages/principal";
 import { View } from "./pages/view";
+import { Success } from "./pages/success";
+import { Failure } from "./pages/failure";
 
 //create your first component
 const Layout = () => {
@@ -45,6 +47,8 @@ const Layout = () => {
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<Principal />} path="/principal" />
                         <Route element={<View />} path="/view" />
+                        <Route element={<Success />} path="/success" />
+                        <Route element={<Failure />} path="/failure" />
 
 
 

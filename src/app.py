@@ -90,7 +90,7 @@ if __name__ == '__main__':
 #MERCADOPAGO
 sdk = mercadopago.SDK("TEST-3202916836419989-081921-46f9371b324e6adf7f3858468454df2d-1274738706")
 
-@app.route('/createPreference', methods=['POST'])
+@app.route('/create_preference', methods=['POST'])
 def create_preference():
     try:
         req_data = request.get_json()
@@ -104,22 +104,19 @@ def create_preference():
                 }
             ],
             "back_urls": {
-                "success": "http://localhost:3000/",
-                "failure": "http://localhost:3000/",
+                "success": "https://daniloemejias-shiny-memory-56p7xx6g5qgc4xr9-3000.app.github.dev/success",
+                "failure": "https://daniloemejias-shiny-memory-56p7xx6g5qgc4xr9-3000.app.github.dev/failure",
                 "pending": "",
             },
             "auto_return": "approved",
         }
 
         preference_response = sdk.preference().create(preference_data)
-        preference_id = preference_response["response"]["id"]
+        preference_id = preference_response["response"] 
 
         return jsonify({"id": preference_id})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-if __name__ == '__main__':
-    app.run(debug=True)
 
     

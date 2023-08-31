@@ -54,6 +54,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return resp
 			},
 
+			/*userSignup: async (email, password, first_name, last_name, phone) => {
+				const resp = await getActions().apiFetch("/signup", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({ email, password, first_name, last_name, phone }),
+					mode: "cors" // Configuración de CORS
+				});
+			
+				if (resp.status >= 400) {
+					return resp
+				}
+			
+				const data = await resp
+				localStorage.setItem("accessToken", data.accessToken);
+				return data;
+			},*/
+
 			userSignup: async(email, password, first_name, last_name, phone) => {
 				const resp = await getActions().apiFetch("/signup", "POST", {email, password, first_name, last_name, phone})
 				if(resp.code >= 400) {
@@ -223,16 +242,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			createPreference: async () => {
 				try {
-					const response = await fetch("http://127.0.0.1:5000/create_preference", {
+					const response = await fetch("https://daniloemejias-shiny-memory-56p7xx6g5qgc4xr9-3001.app.github.dev/create_preference", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 					},
 					body: JSON.stringify({
-						description: "Bananita contenta",
-						price: 100,
+						description: "Sushi Roll",
+						price: 500,
 						quantity: 1,
-						currency_id: "BRL" //Si no configuro nada me agarra la moneda de mi cuenta
+						currency_id: "UY" //Si no configuro nada me agarra la moneda de mi cuenta
 					}),
 					});
 
