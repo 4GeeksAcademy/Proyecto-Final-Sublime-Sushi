@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./card"; // Asegúrate de que la ruta sea correcta
+import Card from "./card"; 
 
 function Cards({ cardData }) {
     return (
@@ -7,7 +7,7 @@ function Cards({ cardData }) {
             <div className="row">
                 {cardData.map(card => (
                     <div key={card.id} className="col-md-4 mb-4">
-                        <Card title={card.title} description={card.description} price={card.price} />
+                        <Card title={card.title} description={card.description} price={card.price} imageSource={card.image} />
                     </div>
                 ))}
             </div>

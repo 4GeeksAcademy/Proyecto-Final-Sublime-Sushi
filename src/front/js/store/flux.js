@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			preferenceId:null,
 			demo: [
 				{
 					title: "FIRST",
@@ -32,7 +33,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				setStore({
 					accessToken: resp.data.accessToken,
-					refreshToken: resp.data.refreshToken
+					refreshToken: resp.data.refreshToken,
 				})
 				localStorage.setItem("accessToken", resp.data.accessToken)
 				localStorage.setItem("refreshToken", resp.data.refreshToken)
@@ -53,8 +54,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return resp
 			},
 
-			userSignup: async(email, password, first_name, last_name) => {
-				const resp = await getActions().apiFetch("/signup", "POST", {email, password, first_name, last_name})
+			/*userSignup: async (email, password, first_name, last_name, phone) => {
+				const resp = await getActions().apiFetch("/signup", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({ email, password, first_name, last_name, phone }),
+					mode: "cors" // Configuración de CORS
+				});
+			
+				if (resp.status >= 400) {
+					return resp
+				}
+			
+				const data = await resp
+				localStorage.setItem("accessToken", data.accessToken);
+				return data;
+			},*/
+
+			userSignup: async(email, password, first_name, last_name, phone) => {
+				const resp = await getActions().apiFetch("/signup", "POST", {email, password, first_name, last_name, phone})
 				if(resp.code >= 400) {
 					return resp
 				}
@@ -141,7 +161,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			apiFetch: async(endpoint, method="GET", body={}) => { //ERROR
+			apiFetch: async (endpoint, method="GET", body={}) => { //ERROR
 				const headers = {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
@@ -156,7 +176,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: headers
 				})
 				if(!response.ok) {
-					console.error(`${response.status}: ${response.statusText}`) //ERROR
+					console.error(`${response.status}: ${response.statusText}`)
 					return { code: response.status }
 				}
 
@@ -218,7 +238,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				localStorage.setItem("accessToken", data.accessToken)
 				localStorage.setItem("refreshToken", data.refreshToken)
-			}
+			},
+
+			createPreference: async () => {
+				try {
+					const response = await fetch("https://daniloemejias-shiny-memory-56p7xx6g5qgc4xr9-3001.app.github.dev/create_preference", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						description: "Sushi Roll",
+						price: 500,
+						quantity: 1,
+						currency_id: "UY" //Si no configuro nada me agarra la moneda de mi cuenta
+					}),
+					});
+
+					if (response.ok) {
+					console.log("El response vino ok del back end y tiene esta info: ", response)
+					const data = await response.json();
+					const { id } = data;
+					console.log("ESTE ES EL FAMOSO ID: ", id)
+					let store = getStore()
+					setStore({...store , preferenceId: id})
+					let store2 = getStore()
+					console.log("Este es el contenido de id en el store: ",store2.preferenceId.id)
+					return id;
+					} else {
+					console.error("Error creating preference, o sea response.ok dio false en flux.js");
+					}
+				} catch (error) {
+					console.error(error);
+				}
+
+			  }
+
+			
+			  
 
 			/*apiFetchProtected: async (endpoint, method = "GET", body = {}) => {
 				let resp = await fetch(apiUrl + endpoint, method == "GET" ? undefined : {

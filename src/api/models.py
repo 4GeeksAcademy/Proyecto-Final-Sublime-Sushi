@@ -12,9 +12,9 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     first_name = db.Column(db.String(120), nullable=False)
     last_name = db.Column(db.String(120), nullable=False)
-    birthday = db.Column(db.String(120), nullable=False)
+    #birthday = db.Column(db.String(120), nullable=False)
     phone = db.Column(db.String(20), unique=True, nullable=False)
-    address = db.Column(db.String(300), unique=False, nullable=False)
+    #address = db.Column(db.String(300), unique=False, nullable=False)
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -26,9 +26,9 @@ class User(db.Model):
             "is_active":self.is_active,
             "first_name":self.first_name,
             "last_name":self.last_name,
-            "birthday":self.birthday,
-            "phone":self.phone,
-            "address":self.address
+            #"birthday":self.birthday,
+            "phone":self.phone
+            #"address":self.address
         
             # do not serialize the password, its a security breach
         }
