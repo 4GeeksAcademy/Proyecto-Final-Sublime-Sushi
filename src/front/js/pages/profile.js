@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+/*import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useSearchParams } from "react-router-dom";
@@ -36,4 +36,4 @@ export const Profile = () => {
         </div>
         
     )
-};
+};*/

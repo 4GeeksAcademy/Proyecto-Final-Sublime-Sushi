@@ -15,7 +15,7 @@ import { ChangePassword } from "./pages/changePassword";
 import { Signup } from "./pages/signup"
 import { SobreNosotros } from "./pages/sobreNosotros"
 import { Menu } from "./pages/menu";
-import { Profile } from "./pages/profile";
+/*import { Profile } from "./pages/profile";*/
 import { Principal } from "./pages/principal";
 import { View } from "./pages/view";
 import { Success } from "./pages/success";
@@ -44,7 +44,6 @@ const Layout = () => {
                         <Route element={<Signup />} path="/api/signup" />
                         <Route element={<SobreNosotros />} path="/sobreNosotros" />
                         <Route element={<Menu />} path="/menu" />
-                        <Route element={<Profile />} path="/profile" />
                         <Route element={<Principal />} path="/principal" />
                         <Route element={<View />} path="/view" />
                         <Route element={<Success />} path="/success" />

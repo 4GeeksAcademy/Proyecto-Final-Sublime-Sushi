@@ -272,12 +272,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(error);
 				}
 
-			  }
+			  },
 
-			
-			  
-
-			/*apiFetchProtected: async (endpoint, method = "GET", body = {}) => {
+			apiFetchProtected: async (endpoint, method = "GET", body = {}) => {
 				let resp = await fetch(apiUrl + endpoint, method == "GET" ? undefined : {
 					method,
 					body: JSON.stringify(body),
@@ -295,7 +292,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				let data = await resp.json()
 				return { code: resp.status, data}
-			}*/
+			}
 		}
 	};
 };
