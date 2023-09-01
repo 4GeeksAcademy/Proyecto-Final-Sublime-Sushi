@@ -7,10 +7,13 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
-from api.models import db
+from api.models import db, TokenBlockedList
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from flask_jwt_extended import JWTManager
+from datetime import timedelta
+import mercadopago
 
 #from models import Person
 
@@ -18,6 +21,21 @@ ENV = os.getenv("FLASK_ENV")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+
+# Configuracion JWTManager
+app.config["JWT_SECRET_KEY"] = os.getenv("FLASK_APP_KEY")
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
+jwt=JWTManager(app)
+
+@jwt.token_in_blocklist_loader
+def check_token_blocklist(jwt_header, jwt_payload) -> bool:
+    tokenBlocked = TokenBlockedList.query.filter_by(
+        jti=jwt_payload["jti"]).first()
+    if not isinstance(tokenBlocked, TokenBlockedList):
+        if jwt_payload["type"] == "password" and request.path != "/api/changepassword":
+            return True
+    else :
+        return True
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -68,3 +86,37 @@ def serve_any_other_file(path):
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=True)
+
+#MERCADOPAGO
+sdk = mercadopago.SDK("TEST-3202916836419989-081921-46f9371b324e6adf7f3858468454df2d-1274738706")
+
+@app.route('/create_preference', methods=['POST'])
+def create_preference():
+    try:
+        req_data = request.get_json()
+
+        preference_data = {
+            "items": [
+                {
+                    "title": req_data["description"],
+                    "unit_price": float(req_data["price"]),
+                    "quantity": int(req_data["quantity"]),
+                }
+            ],
+            "back_urls": {
+                "success": "https://daniloemejias-shiny-memory-56p7xx6g5qgc4xr9-3000.app.github.dev/success",
+                "failure": "https://daniloemejias-shiny-memory-56p7xx6g5qgc4xr9-3000.app.github.dev/failure",
+                "pending": "",
+            },
+            "auto_return": "approved",
+        }
+
+        preference_response = sdk.preference().create(preference_data)
+        preference_id = preference_response["response"] 
+
+        return jsonify({"id": preference_id})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+    
