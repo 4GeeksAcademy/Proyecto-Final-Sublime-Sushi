@@ -119,14 +119,14 @@ def hello_protected_get():
         "message":"Hello protected route"
     })
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
+@api.route('/platos', methods=['GET'])
+def get_platos():
+    all_platos=Platos.query.all()
+    if len(all_platos) < 1:
+        return jsonify({"msg":"not found"}), 404
+    serialized_platos = list(map(lambda item: item.serialize(), all_platos))
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
+    return jsonify(serialized_platos), 200
 
 @api.route("/platos", methods=["POST"])
 def register_platos():

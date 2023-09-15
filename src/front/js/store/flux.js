@@ -136,15 +136,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return { code: resp.status, data}
 			},
 
-			getMessage: async () => {
+			getAllPlatos: async () => {
 				try{
-					// fetching data from the backend
-					const resp = await getActions().apiFetch("/hello")
-					setStore({ message: resp.data.message })
-					// don't forget to return something, that is how the async resolves
-					//return data;
+					const resp = await getActions().apiFetch("/platos")
+					return resp
+					
 				} catch (error) {
-					console.log("Error loading message from backend", error)
+					console.log("Error loading platos from backend", error)
+					return [];
 				}
 			},
 			changeColor: (index, color) => {
