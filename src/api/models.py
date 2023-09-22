@@ -15,6 +15,7 @@ class User(db.Model):
     #birthday = db.Column(db.String(120), nullable=False)
     phone = db.Column(db.String(20), unique=True, nullable=False)
     #address = db.Column(db.String(300), unique=False, nullable=False)
+    pedidos = relationship("Pedidos", backref='user')
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -40,6 +41,9 @@ class Platos(db.Model):
     description = db.Column(db.String(250), unique=False, nullable=False)
     price = db.Column(db.Integer, unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    image = db.Column(db.String(250), unique=False, nullable=True)
+    pedidos = relationship("Pedidos", backref='platos')
+    
 
 
     def __repr__(self):
@@ -51,7 +55,8 @@ class Platos(db.Model):
             "name": self.name,
             "price":self.price,
             "description":self.description,
-            "is_active":self.is_active
+            "is_active":self.is_active,
+            "image":self.image
             
         }
 
@@ -59,9 +64,7 @@ class Pedidos(db.Model):
     __tablename__ = "pedidos"
     pedido_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, ForeignKey("user.id"))
-    user = relationship("User", backref='pedidos')
     fecha_del_pedido = db.Column(db.String(120), nullable=False)
-    estado = db.Column(db.String(120), nullable=False)
     platos_id= db.Column(db.Integer, ForeignKey("platos.plato_id"))
     
 
@@ -74,7 +77,6 @@ class Pedidos(db.Model):
             "user_id": self.user_id,
             "fecha_del_pedido": self.fecha_del_pedido,
             "platos_id":self.platos_id,
-            "estado": self.estado
         }
     
 class DetalleDePedidos(db.Model):
