@@ -3,15 +3,7 @@ import { Context } from "../store/appContext";
 import { Navbar } from "../component/navbar";
 import Cards from "../component/cards"; 
 import { useNavigate } from "react-router-dom";
-import image1 from "../../img/New-York.jpg"
-import image2 from "../../img/California.jpg"
-import image3 from "../../img/Smoked.jpg"
-import image4 from "../../img/New-York-Panko.jpg"
-import image5 from "../../img/New-Age.jpg"
-import image6 from "../../img/Teriyaki-Roll.jpg"
-import image7 from "../../img/GreenLand.jpg"
-import image8 from "../../img/SushiPlace.jpg"
-import image9 from "../../img/Ebi-Furai.jpg"
+
 
 export const Menu = () => {
     const { store, actions } = useContext(Context);

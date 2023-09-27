@@ -68,25 +68,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return resp
 			},
 
-			/*userSignup: async (email, password, first_name, last_name, phone) => {
-				const resp = await getActions().apiFetch("/signup", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify({ email, password, first_name, last_name, phone }),
-					mode: "cors" // Configuración de CORS
-				});
-			
-				if (resp.status >= 400) {
-					return resp
-				}
-			
-				const data = await resp
-				localStorage.setItem("accessToken", data.accessToken);
-				return data;
-			},*/
-
 			userSignup: async(email, password, first_name, last_name, phone) => {
 				const resp = await getActions().apiFetch("/signup", "POST", {email, password, first_name, last_name, phone})
 				if(resp.code >= 400) {
@@ -287,32 +268,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			  },
 
-			// apiFetchProtected: async (endpoint, method = "GET", body = {}) => {
-			// 	let resp = await fetch(apiUrl + endpoint, method == "GET" ? 
-			// 		{
-			// 			method,
-			// 			headers: {
-			// 				"Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-			// 			}
-			// 		}
-			// 	: {
-			// 		method,
-			// 		body: JSON.stringify(body),
-			// 		headers: {
-			// 			"Content-type": "application/json",
-			// 			"Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-			// 		}
-			// 	})
-			// 	if (!resp.ok) {
-			// 		// Verificar si el token ha expirado
-					
-			// 		//Si el token expira se debe usar el refresh token para obteer un nuevo access token
-			// 		console.error(`${resp.status}: ${resp.statusText}`)
-			// 		return { code: resp.status, error: `${resp.status}: ${resp.statusText}`}
-			// 	}
-			// 	let data = await resp.json()
-			// 	return { code: resp.status, data}
-			// },
 			createNewOrder: async(platos_id)=> {
 				const date = new Date ()
 				const fecha_del_pedido = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()

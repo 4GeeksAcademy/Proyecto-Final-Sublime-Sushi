@@ -12,7 +12,6 @@ function Cards({ cardData }) {
                 {cardData.data.map(card => (
                     <div key={card.plato_id} className="col-md-4 mb-4">
                         <Card title={card.name} description={card.description} price={card.price} id={card.plato_id} imageSource={card.image}  />
-                        {/* <Card title={card.title} description={card.description} price={card.price} imageSource={card.image} /> */}
                     </div>
                 ))}
             </div>
