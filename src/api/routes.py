@@ -7,6 +7,7 @@ from api.utils import generate_sitemap, APIException
 from api.sendmail import sendMail, recoveryPasswordTemplate
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity, get_jwt, get_jti
+import json
 
 api = Blueprint('api', __name__)
 app = Flask(__name__)
@@ -110,23 +111,23 @@ def user_logout():
     db.session.commit()
     return jsonify({"message": "Token revoked"})
 
-@api.route('/helloprotected', methods=['GET'])
+@api.route('/isAuth', methods=['GET'])
 @jwt_required()
-def hello_protected_get():
+def is_Auth():
     user_id = get_jwt_identity()
+    user= User.query.get(user_id)
     return jsonify({
-        "userId": user_id,
-        "message":"Hello protected route"
-    })
+        "user": user.serialize()
+    }), 200
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
+@api.route('/platos', methods=['GET'])
+def get_platos():
+    all_platos=Platos.query.all()
+    if len(all_platos) < 1:
+        return jsonify({"msg":"not found"}), 404
+    serialized_platos = list(map(lambda item: item.serialize(), all_platos))
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
+    return jsonify(serialized_platos), 200
 
 @api.route("/platos", methods=["POST"])
 def register_platos():
@@ -141,13 +142,12 @@ def register_platos():
     return jsonify(response), 200
 
 @api.route("/pedidos", methods=["POST"])
+@jwt_required()
 def register_pedidos():
-    id = request.json.get("id")
-    restaurant = request.json.get("restaurant_id")
-    usuario = request.json.get("usuario_id")
-    platos = request.json.get("platos_id")
+    body= json.loads(request.data)
+    user_id = get_jwt_identity()
     new_pedidos = Pedidos(
-        name=id, restaurant=restaurant, usuario=usuario, platos=platos
+        user_id=user_id, platos_id=body["platos_id"], fecha_del_pedido=body["fecha_del_pedido"]
     )
     db.session.add(new_pedidos)
     db.session.commit()

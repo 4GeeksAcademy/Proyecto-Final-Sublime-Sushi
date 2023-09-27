@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 			preferenceId:null,
+			current_user:null,
 			demo: [
 				{
 					title: "FIRST",
@@ -40,6 +41,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return resp
 			},
 
+			isAuth: async()=> {
+				const resp = await getActions().apiFetchProtected("/isAuth", "GET")
+				if(resp.code >= 400){
+					return resp
+				}
+				setStore({
+					current_user: resp.data.user
+				})
+				console.log(resp)
+				
+				return resp
+			},
+
 			userLogout: async()=> {
 				const resp = await getActions().apiFetchProtected("/logout", "POST")
 				if(resp.code >= 400){
@@ -53,25 +67,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("refreshToken")
 				return resp
 			},
-
-			/*userSignup: async (email, password, first_name, last_name, phone) => {
-				const resp = await getActions().apiFetch("/signup", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify({ email, password, first_name, last_name, phone }),
-					mode: "cors" // Configuración de CORS
-				});
-			
-				if (resp.status >= 400) {
-					return resp
-				}
-			
-				const data = await resp
-				localStorage.setItem("accessToken", data.accessToken);
-				return data;
-			},*/
 
 			userSignup: async(email, password, first_name, last_name, phone) => {
 				const resp = await getActions().apiFetch("/signup", "POST", {email, password, first_name, last_name, phone})
@@ -136,15 +131,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return { code: resp.status, data}
 			},
 
-			getMessage: async () => {
+			getAllPlatos: async () => {
 				try{
-					// fetching data from the backend
-					const resp = await getActions().apiFetch("/hello")
-					setStore({ message: resp.data.message })
-					// don't forget to return something, that is how the async resolves
-					//return data;
+					const resp = await getActions().apiFetch("/platos")
+					return resp
+					
 				} catch (error) {
-					console.log("Error loading message from backend", error)
+					console.log("Error loading platos from backend", error)
+					return [];
 				}
 			},
 			changeColor: (index, color) => {
@@ -187,7 +181,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			apiFetchProtected: async (endpoint, method = "GET", body = {}) => {
 				let params = {
 					headers: {
-						"Authorization": `Bearer ${getStore().accessToken}`
+						"Authorization": `Bearer ${localStorage.getItem("accessToken")}`
 					}
 				}
 				if (method !== "GET") {
@@ -202,7 +196,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if(data.msg=="Token has expired"){
 						//Aqui se solicita un nuevo token de acceso
 						await getActions().refreshToken()
-						params.headers.Authorization = `Bearer ${getStore().accessToken}`
+						params.headers.Authorization = `Bearer ${localStorage.getItem("accessToken")}`
 
 						// Se repite la peticion con el token nuevo
 						resp = await fetch(apiUrl + endpoint, params)
@@ -274,25 +268,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			  },
 
-			apiFetchProtected: async (endpoint, method = "GET", body = {}) => {
-				let resp = await fetch(apiUrl + endpoint, method == "GET" ? undefined : {
-					method,
-					body: JSON.stringify(body),
-					headers: {
-						"Content-type": "application/json",
-						"Authorization": `Bearer ${getStore().accessToken}`
-					}
+			createNewOrder: async(platos_id)=> {
+				const date = new Date ()
+				const fecha_del_pedido = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()
+				const resp = await getActions().apiFetchProtected("/pedidos", "POST", {
+					platos_id:platos_id,
+					fecha_del_pedido:fecha_del_pedido
 				})
-				if (!resp.ok) {
-					// Verificar si el token ha expirado
-					
-					//Si el token expira se debe usar el refresh token para obteer un nuevo access token
-					console.error(`${resp.status}: ${resp.statusText}`)
-					return { code: resp.status, error: `${resp.status}: ${resp.statusText}`}
+				if(resp.code >= 400){
+					return resp
 				}
-				let data = await resp.json()
-				return { code: resp.status, data}
-			}
+				return resp
+			},
 		}
 	};
 };
